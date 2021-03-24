@@ -2,13 +2,20 @@ package com.sriyank.cpdemo.data;
 
 
 import android.content.ContentProvider;
+import android.content.ContentProviderOperation;
+import android.content.ContentProviderResult;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.OperationApplicationException;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import java.util.ArrayList;
 
 import static com.sriyank.cpdemo.data.NationContract.CONTENT_AUTHORITY;
 import static com.sriyank.cpdemo.data.NationContract.NationEntry;
@@ -150,5 +157,24 @@ public class NationProvider extends ContentProvider {
 		}
 
 		return rowsUpdated;
+	}
+
+	@NonNull
+	@Override
+	public ContentProviderResult[] applyBatch(@NonNull ArrayList<ContentProviderOperation> operations)
+			throws OperationApplicationException {
+		return super.applyBatch(operations);
+	}
+
+	@NonNull
+	@Override
+	public ContentProviderResult[] applyBatch(@NonNull String authority, @NonNull ArrayList<ContentProviderOperation> operations)
+			throws OperationApplicationException {
+		return super.applyBatch(authority, operations);
+	}
+
+	@Override
+	public int bulkInsert(@NonNull Uri uri, @NonNull ContentValues[] values) {
+		return super.bulkInsert(uri, values);
 	}
 }
